@@ -15,3 +15,6 @@ frontend/src/components/layout/site-header.module.css
 
 # Windows temp logs accidentally written into the tree
 *.log
+
+# Office lock/temp files (created while a document is open)
+~$*
