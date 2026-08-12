@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://botforge.local/schemas/release-health.json",
+  "title": "BotForge release health snapshot",
+  "description": "Optional machine-readable rollup for dashboards or CI append. Version field is semver or tag string.",
+  "type": "object",
+  "required": ["version", "git_sha_full", "recorded_at_utc", "pillars"],
+  "properties": {
+    "version": { "type": "string" },
+    "git_sha_full": { "type": "string", "minLength": 40, "maxLength": 40 },
+    "recorded_at_utc": { "type": "string", "format": "date-time" },
+    "pillars": {
+      "type": "object",
+      "required": ["ci", "integration", "e2e", "load", "db", "release_gate"],
+      "properties": {
+        "ci": { "$ref": "#/$defs/pillar" },
+        "integration": { "$ref": "#/$defs/pillar" },
+        "e2e": { "$ref": "#/$defs/pillar" },
+        "load": { "$ref": "#/$defs/pillar" },
+        "db": { "$ref": "#/$defs/pillar" },
+        "release_gate": { "$ref": "#/$defs/pillar" }
+      },
+      "additionalProperties": false
+    },
+    "ci_run_url": { "type": "string", "format": "uri" },
+    "e2e_run_url": { "type": "string", "format": "uri" },
+    "k6_artifact_url": { "type": "string", "format": "uri" },
+    "previous_version": { "type": "string" },
+    "regressions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "severity", "blocks_release"],
+        "properties": {
+          "id": { "type": "string" },
+          "severity": { "type": "string", "enum": ["S1", "S2", "S3", "S4"] },
+          "blocks_release": { "type": "boolean" },
+          "summary": { "type": "string" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "pillar": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "type": "string", "enum": ["green", "yellow", "red", "unknown"] },
+        "evidence_url": { "type": "string", "format": "uri" },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

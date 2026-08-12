@@ -1,0 +1,537 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Analytics Page — polished dark-friendly dashboard
+   ═══════════════════════════════════════════════════════════════════ */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* ─── Page header ──────────────────────────────────── */
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 740;
+  letter-spacing: -0.03em;
+  color: var(--bf-text);
+}
+
+.pageSubtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--bf-text) 55%, transparent);
+  font-weight: 450;
+}
+
+/* ─── Period toggle ──────────────────────────────────── */
+.periodRow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.periodLabel {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--bf-text) 50%, transparent);
+  margin-right: 0.15rem;
+}
+
+.periodBtn {
+  padding: 0.35rem 0.85rem;
+  border-radius: 99px;
+  font-size: 0.78rem;
+  font-weight: 620;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 65%, transparent);
+  background: transparent;
+  color: color-mix(in srgb, var(--bf-text) 60%, transparent);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.periodBtn:hover {
+  background: color-mix(in srgb, var(--bf-border) 30%, transparent);
+  color: var(--bf-text);
+  border-color: color-mix(in srgb, var(--bf-border) 95%, transparent);
+}
+
+.periodBtnActive {
+  background: color-mix(in srgb, var(--bf-accent) 16%, transparent);
+  border-color: color-mix(in srgb, var(--bf-accent) 45%, transparent);
+  color: var(--bf-accent-soft);
+}
+
+/* ─── Stat cards row ─────────────────────────────────── */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+}
+
+@media (min-width: 640px) {
+  .statsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.statCard {
+  padding: 1.1rem 1rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 70%, transparent);
+  background: var(--bf-card);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.statCard:hover {
+  border-color: color-mix(in srgb, var(--bf-border) 100%, transparent);
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--bf-bg) 60%, transparent);
+}
+
+.statIconWrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.statIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.statContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.statLabel {
+  font-size: 0.68rem;
+  font-weight: 680;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--bf-text) 50%, transparent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.statValue {
+  font-size: 1.65rem;
+  font-weight: 760;
+  letter-spacing: -0.04em;
+  color: var(--bf-text);
+  line-height: 1.1;
+}
+
+.statSub {
+  font-size: 0.72rem;
+  color: color-mix(in srgb, var(--bf-text) 45%, transparent);
+  font-weight: 480;
+}
+
+/* ─── Two-column panels ──────────────────────────────── */
+.panelsRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+}
+
+@media (min-width: 820px) {
+  .panelsRow {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ─── Generic panel ──────────────────────────────────── */
+.panel {
+  padding: 1.35rem 1.25rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 70%, transparent);
+  background: var(--bf-card);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.panel:hover {
+  border-color: color-mix(in srgb, var(--bf-border) 100%, transparent);
+}
+
+.panelTitle {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--bf-text) 65%, transparent);
+}
+
+.panelTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* ─── Empty states ──────────────────────────────────── */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1rem;
+  gap: 0.75rem;
+}
+
+.emptyIcon {
+  width: 40px;
+  height: 40px;
+  color: color-mix(in srgb, var(--bf-text) 25%, transparent);
+}
+
+.emptyIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.emptyText {
+  margin: 0;
+  font-size: 0.85rem;
+  color: color-mix(in srgb, var(--bf-text) 40%, transparent);
+  text-align: center;
+}
+
+.emptyLink {
+  color: var(--bf-accent-soft);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.15s;
+}
+
+.emptyLink:hover {
+  text-decoration-color: var(--bf-accent-soft);
+}
+
+/* ─── Pipeline / status bars ────────────────────────── */
+.pipelineList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.pipelineRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.pipelineMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pipelineDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pipelineLabel {
+  font-size: 0.8rem;
+  font-weight: 580;
+  color: var(--bf-text);
+  flex: 1;
+}
+
+.pipelineCount {
+  font-size: 0.78rem;
+  font-weight: 640;
+  color: color-mix(in srgb, var(--bf-text) 55%, transparent);
+  font-variant-numeric: tabular-nums;
+}
+
+.barTrack {
+  width: 100%;
+  height: 6px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--bf-border) 40%, transparent);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Chart + list layout inside panel ──────────────── */
+.panelChartSection {
+  padding-bottom: 0.85rem;
+  margin-bottom: 0.15rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--bf-border) 35%, transparent);
+}
+
+/* ─── Usage panel ────────────────────────────────────── */
+.usageGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.usageItem {
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--bf-border) 20%, var(--bf-card));
+  border: 1px solid color-mix(in srgb, var(--bf-border) 45%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.usageLabel {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--bf-text) 50%, transparent);
+}
+
+.usageValue {
+  font-size: 1.05rem;
+  font-weight: 680;
+  color: var(--bf-text);
+  letter-spacing: -0.02em;
+}
+
+.usageSub {
+  font-size: 0.72rem;
+  color: color-mix(in srgb, var(--bf-text) 40%, transparent);
+}
+
+.usageBar {
+  width: 100%;
+  height: 4px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--bf-border) 40%, transparent);
+  overflow: hidden;
+  margin-top: 0.35rem;
+}
+
+.usageBarFill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.5s ease;
+}
+
+.billingHint {
+  margin: 0;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--bf-text) 42%, transparent);
+}
+
+.billingLink {
+  color: var(--bf-accent-soft);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.15s;
+}
+
+.billingLink:hover {
+  text-decoration-color: var(--bf-accent-soft);
+}
+
+/* ─── Plan badge ─────────────────────────────────────── */
+.planBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.65rem;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 720;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--bf-accent) 16%, transparent);
+  color: var(--bf-accent-soft);
+}
+
+/* ─── Loading state ──────────────────────────────────── */
+.loadingWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid color-mix(in srgb, var(--bf-border) 50%, transparent);
+  border-top-color: var(--bf-accent-soft);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingText {
+  margin: 0;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--bf-text) 50%, transparent);
+}
+
+/* ─── Error banner ───────────────────────────────────── */
+.errorBanner {
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, #ef4444 10%, transparent);
+  color: #f87171;
+  font-size: 0.85rem;
+  font-weight: 520;
+  border: 1px solid color-mix(in srgb, #ef4444 20%, transparent);
+}
+
+/* ─── Donut chart ───────────────────────────────────── */
+.donutWrap {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.donutCenterLabel {
+  font-size: 1.25rem;
+  font-weight: 760;
+  fill: var(--bf-text);
+  letter-spacing: -0.03em;
+}
+
+.donutCenterSub {
+  font-size: 0.52rem;
+  font-weight: 620;
+  fill: color-mix(in srgb, var(--bf-text) 45%, transparent);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.donutLegend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.donutLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.donutLegendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.donutLegendLabel {
+  font-size: 0.78rem;
+  font-weight: 580;
+  color: var(--bf-text);
+  flex: 1;
+  min-width: 50px;
+}
+
+.donutLegendValue {
+  font-size: 0.78rem;
+  font-weight: 660;
+  color: var(--bf-text);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.donutLegendPct {
+  font-weight: 540;
+  color: color-mix(in srgb, var(--bf-text) 42%, transparent);
+}
+
+/* ─── Mini bar chart ────────────────────────────────── */
+.miniBarSvg {
+  display: block;
+  max-width: 100%;
+}
+
+.miniBarLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  fill: var(--bf-text);
+}
+
+.miniBarTrack {
+  fill: color-mix(in srgb, var(--bf-border) 35%, transparent);
+}
+
+.miniBarValue {
+  font-size: 0.68rem;
+  font-weight: 660;
+  fill: color-mix(in srgb, var(--bf-text) 55%, transparent);
+}
+
+/* ─── Responsive tweaks ─────────────────────────────── */
+@media (max-width: 639px) {
+  .pageHeader {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .statCard {
+    padding: 0.9rem;
+  }
+
+  .statValue {
+    font-size: 1.35rem;
+  }
+
+  .statIconWrap {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+
+  .statIcon {
+    width: 17px;
+    height: 17px;
+  }
+
+  .usageGrid {
+    grid-template-columns: 1fr;
+  }
+}

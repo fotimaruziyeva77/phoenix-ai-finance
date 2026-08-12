@@ -1,0 +1,384 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.pageIntro {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--bf-text-muted);
+  max-width: 42rem;
+  line-height: 1.45;
+}
+
+.errorBanner {
+  margin: 0;
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, #c0392b 12%, transparent);
+  border: 1px solid color-mix(in srgb, #c0392b 35%, transparent);
+  color: var(--bf-text);
+  font-size: 0.875rem;
+}
+
+.successBanner {
+  margin: 0;
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--bf-accent) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--bf-accent) 28%, transparent);
+  font-size: 0.875rem;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11.5rem, 1fr));
+  gap: 0.85rem;
+}
+
+.statCard {
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 85%, transparent);
+  background: color-mix(in srgb, var(--bf-card) 96%, var(--bf-page-bg));
+}
+
+.statLabel {
+  margin: 0 0 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bf-text-muted);
+}
+
+.statValue {
+  margin: 0;
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--bf-text);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.toolbarMeta {
+  margin-left: auto;
+  font-size: 0.8125rem;
+  color: var(--bf-text-muted);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 9px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.12s ease, border-color 0.12s ease, opacity 0.12s ease;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btnNeutral {
+  composes: btn;
+  background: color-mix(in srgb, var(--bf-card) 90%, transparent);
+  border-color: color-mix(in srgb, var(--bf-border) 80%, transparent);
+  color: var(--bf-text);
+}
+
+.btnNeutral:hover:not(:disabled) {
+  background: color-mix(in srgb, white 6%, transparent);
+}
+
+.btnDanger {
+  composes: btn;
+  background: color-mix(in srgb, #c0392b 14%, transparent);
+  border-color: color-mix(in srgb, #c0392b 40%, transparent);
+  color: var(--bf-text);
+}
+
+.btnDanger:hover:not(:disabled) {
+  background: color-mix(in srgb, #c0392b 22%, transparent);
+}
+
+.btnPrimary {
+  composes: btn;
+  background: color-mix(in srgb, var(--bf-accent) 22%, transparent);
+  border-color: color-mix(in srgb, var(--bf-accent) 45%, transparent);
+  color: var(--bf-text);
+}
+
+.btnPrimary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--bf-accent) 30%, transparent);
+}
+
+.tableWrap {
+  overflow: auto;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 85%, transparent);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.th {
+  text-align: left;
+  padding: 0.55rem 0.75rem;
+  font-weight: 600;
+  color: var(--bf-text-muted);
+  border-bottom: 1px solid color-mix(in srgb, var(--bf-border) 75%, transparent);
+  background: color-mix(in srgb, var(--bf-card) 88%, var(--bf-page-bg));
+  white-space: nowrap;
+}
+
+.td {
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--bf-border) 55%, transparent);
+  vertical-align: top;
+}
+
+.rowLink {
+  color: var(--bf-accent-soft);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.rowLink:hover {
+  text-decoration: underline;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.12rem 0.45rem;
+  border-radius: 6px;
+  font-size: 0.6875rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
+.badgeOk {
+  composes: badge;
+  background: color-mix(in srgb, var(--bf-accent) 18%, transparent);
+  color: var(--bf-text);
+}
+
+.badgeWarn {
+  composes: badge;
+  background: color-mix(in srgb, #f39c12 20%, transparent);
+  color: var(--bf-text);
+}
+
+.badgeBad {
+  composes: badge;
+  background: color-mix(in srgb, #c0392b 18%, transparent);
+  color: var(--bf-text);
+}
+
+.badgeMuted {
+  composes: badge;
+  background: color-mix(in srgb, var(--bf-border) 35%, transparent);
+  color: var(--bf-text-muted);
+}
+
+.cellSub {
+  margin-top: 0.2rem;
+  font-size: 0.75rem;
+  color: var(--bf-text-muted);
+}
+
+.inlineBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: minmax(8rem, 10rem) 1fr;
+  gap: 0.35rem 1rem;
+  font-size: 0.875rem;
+  max-width: 40rem;
+}
+
+.detailDt {
+  margin: 0;
+  color: var(--bf-text-muted);
+  font-weight: 500;
+}
+
+.detailDd {
+  margin: 0;
+  word-break: break-word;
+}
+
+.actionsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--bf-border) 70%, transparent);
+}
+
+.backLink {
+  font-size: 0.875rem;
+  color: var(--bf-accent-soft);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+/* Table row hover */
+.row:hover td {
+  background: color-mix(in srgb, var(--bf-accent) 4%, transparent);
+}
+
+/* Filter inputs */
+.filterInput {
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 80%, transparent);
+  background: var(--bf-page-bg);
+  color: var(--bf-text);
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+/* Pagination button */
+.pageBtn {
+  padding: 0.35rem 0.65rem;
+  border-radius: 7px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 80%, transparent);
+  background: var(--bf-surface, var(--bf-card));
+  color: var(--bf-text);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.pageBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pageBtn:not(:disabled):hover {
+  background: color-mix(in srgb, var(--bf-accent) 12%, transparent);
+}
+
+/* Action button in table */
+.actionBtn {
+  composes: btn;
+  background: color-mix(in srgb, var(--bf-accent) 14%, transparent);
+  border-color: color-mix(in srgb, var(--bf-accent) 35%, transparent);
+  color: var(--bf-text);
+  font-size: 0.78rem;
+  padding: 3px 10px;
+}
+
+.actionBtn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--bf-accent) 22%, transparent);
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: color-mix(in srgb, black 45%, transparent);
+}
+
+.modal {
+  width: min(26rem, 100%);
+  padding: 1.15rem 1.2rem 1rem;
+  border-radius: 14px;
+  background: var(--bf-card);
+  border: 1px solid color-mix(in srgb, var(--bf-border) 80%, transparent);
+  box-shadow: 0 16px 48px color-mix(in srgb, black 35%, transparent);
+}
+
+.modalTitle {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.modalHint {
+  margin: 0 0 0.65rem;
+  font-size: 0.8125rem;
+  color: var(--bf-text-muted);
+  line-height: 1.4;
+}
+
+.modalFieldLabel {
+  display: block;
+  margin: 0 0 0.35rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--bf-text-muted);
+}
+
+.textarea {
+  width: 100%;
+  min-height: 4.5rem;
+  margin-bottom: 0.85rem;
+  padding: 0.5rem 0.6rem;
+  border-radius: 9px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 80%, transparent);
+  background: var(--bf-page-bg);
+  color: var(--bf-text);
+  font-size: 0.8125rem;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+/* Chart container */
+.chartContainer {
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 85%, transparent);
+  background: color-mix(in srgb, var(--bf-card) 96%, var(--bf-page-bg));
+}
+
+.chartRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (max-width: 48rem) {
+  .chartRow {
+    grid-template-columns: 1fr;
+  }
+}

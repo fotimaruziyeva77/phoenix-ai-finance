@@ -1,0 +1,153 @@
+.wrap {
+  display: grid;
+  gap: 1rem;
+  background: var(--bf-card);
+  border: 1px solid var(--bf-border);
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+
+.stream {
+  display: grid;
+  gap: 0.875rem;
+  max-height: 34rem;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+  scroll-behavior: smooth;
+}
+
+.turn {
+  display: flex;
+  gap: 0.625rem;
+  align-items: flex-start;
+  animation: rise 0.24s ease both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .turn {
+    animation: none;
+  }
+}
+
+.turnUser {
+  justify-content: flex-end;
+}
+
+.avatar {
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bf-accent) 22%, transparent);
+  font-size: 0.9375rem;
+}
+
+.bubble {
+  max-width: 42rem;
+  padding: 0.6875rem 0.9375rem;
+  border-radius: 0.875rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  border: 1px solid var(--bf-border);
+  background: var(--bf-input-bg);
+}
+
+.turnUser .bubble {
+  border-color: color-mix(in srgb, var(--bf-accent) 45%, transparent);
+  background: color-mix(in srgb, var(--bf-accent) 16%, var(--bf-input-bg));
+}
+
+.resultCard {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  padding: 0.4375rem 0.875rem;
+  border-radius: 999px;
+  border: 1px solid var(--bf-border);
+  background: var(--bf-input-bg);
+  color: var(--bf-text-muted);
+  font-size: 0.875rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.chip:hover {
+  border-color: var(--bf-accent);
+  color: var(--bf-text);
+}
+
+.composer {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.input {
+  flex: 1 1 14rem;
+  min-width: 0;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.625rem;
+  border: 1px solid var(--bf-border);
+  background: var(--bf-input-bg);
+  color: var(--bf-text);
+  font-size: 0.9375rem;
+  font-family: inherit;
+}
+
+.input:focus {
+  outline: 2px solid var(--bf-accent);
+  outline-offset: -1px;
+}
+
+.send {
+  padding: 0.625rem 1.125rem;
+  border: none;
+  border-radius: 0.625rem;
+  background: linear-gradient(135deg, var(--bf-accent), #2aa873);
+  color: var(--px-on-accent);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.send:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.restart {
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.625rem;
+  border: 1px solid var(--bf-border);
+  background: transparent;
+  color: var(--bf-text-muted);
+  font-size: 0.875rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.restart:hover {
+  border-color: var(--bf-accent);
+  color: var(--bf-text);
+}

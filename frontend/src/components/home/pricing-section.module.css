@@ -1,0 +1,193 @@
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.15rem;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: stretch;
+  }
+}
+
+/* ── Base card ── */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.5rem 1.35rem 1.35rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 85%, transparent);
+  background: color-mix(in srgb, var(--bf-card) 90%, transparent);
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease;
+}
+
+.card:hover {
+  border-color: color-mix(in srgb, var(--bf-border) 50%, var(--bf-accent));
+  background: color-mix(in srgb, var(--bf-card) 96%, transparent);
+}
+
+/* ── Popular card highlight ── */
+.popular {
+  border-color: color-mix(in srgb, var(--bf-accent) 65%, transparent);
+  background: color-mix(in srgb, var(--bf-accent) 7%, var(--bf-card));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--bf-accent) 35%, transparent) inset,
+    0 8px 32px color-mix(in srgb, var(--bf-accent) 18%, transparent);
+}
+
+.popular:hover {
+  border-color: color-mix(in srgb, var(--bf-accent) 85%, transparent);
+  background: color-mix(in srgb, var(--bf-accent) 10%, var(--bf-card));
+}
+
+/* ── Enterprise card ── */
+.enterpriseCard {
+  border-color: color-mix(in srgb, #7c3aed 50%, transparent);
+  background: color-mix(in srgb, #7c3aed 5%, var(--bf-card));
+}
+
+.enterpriseCard:hover {
+  border-color: color-mix(in srgb, #7c3aed 75%, transparent);
+}
+
+/* ── Most Popular badge ── */
+.priceBadge {
+  position: absolute;
+  top: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.2rem 0.8rem;
+  border-radius: 99px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #fafafa;
+  background: linear-gradient(135deg, var(--bf-accent) 0%, #7c3aed 100%);
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--bf-accent) 45%, transparent);
+}
+
+/* ── Plan name ── */
+.planName {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--bf-text);
+}
+
+/* ── Price display ── */
+.price {
+  margin: 0 0 0.65rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.1rem;
+  line-height: 1;
+}
+
+.priceAmount {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--bf-text);
+}
+
+.pricePeriod {
+  font-size: 0.8125rem;
+  color: var(--bf-text-muted);
+}
+
+/* ── Description ── */
+.description {
+  margin: 0 0 1.1rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--bf-text-muted);
+}
+
+/* ── Feature list ── */
+.features {
+  margin: 0 0 1.35rem;
+  padding: 0;
+  flex: 1;
+  list-style: none;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--bf-text) 88%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+}
+
+/* ── Checkmark ── */
+.checkmark {
+  flex-shrink: 0;
+  color: #4ade80;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+/* ── CTA button ── */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 2.65rem;
+  padding: 0 1rem;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, var(--bf-accent) 0%, var(--bf-accent-mid) 100%);
+  color: #fafafa;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: filter 0.15s ease, transform 0.12s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+.cta:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.cta:focus-visible {
+  outline: 2px solid var(--bf-accent-soft);
+  outline-offset: 2px;
+}
+
+/* priceLine kept for backward compat in case anything still references it */
+.priceLine {
+  margin: 0 0 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--bf-text-muted);
+}

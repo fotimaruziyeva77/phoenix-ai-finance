@@ -1,0 +1,98 @@
+.list {
+  max-width: 40rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.item {
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 88%, transparent);
+  background: color-mix(in srgb, var(--bf-card) 92%, transparent);
+  overflow: hidden;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.item:hover {
+  border-color: color-mix(in srgb, var(--bf-border) 65%, var(--bf-accent));
+}
+
+.itemOpen {
+  border-color: color-mix(in srgb, var(--bf-border) 40%, var(--bf-accent));
+  background: color-mix(in srgb, var(--bf-card) 98%, transparent);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--bf-accent) 8%, transparent);
+}
+
+/* ── Trigger button ── */
+.summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 1.1rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--bf-text);
+  cursor: pointer;
+  border: none;
+  background: none;
+  text-align: left;
+  font-family: inherit;
+}
+
+.summary:focus-visible {
+  outline: 2px solid var(--bf-accent-soft);
+  outline-offset: -2px;
+  border-radius: 8px;
+}
+
+/* ── Chevron icon ── */
+.chevron {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--bf-text-muted);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.25s ease;
+}
+
+.itemOpen .chevron {
+  transform: rotate(180deg);
+  color: var(--bf-accent-soft);
+}
+
+/* ── Smooth accordion: CSS grid row trick ── */
+.panelWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.itemOpen .panelWrap {
+  grid-template-rows: 1fr;
+}
+
+.panel {
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.itemOpen .panel {
+  opacity: 1;
+  transition: opacity 0.3s ease 0.1s;
+}
+
+.panel p {
+  margin: 0;
+  padding: 0 1.1rem 1.05rem;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--bf-text-muted);
+}

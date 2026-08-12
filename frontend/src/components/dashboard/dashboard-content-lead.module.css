@@ -1,0 +1,7 @@
+.lead {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--bf-text-muted);
+  max-width: 38rem;
+}

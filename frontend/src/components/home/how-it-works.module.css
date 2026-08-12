@@ -1,0 +1,173 @@
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+/* On medium screens, 5 columns can feel tight — allow 3+2 wrap */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card:nth-child(5) {
+    grid-column: 1 / -1;
+    max-width: 24rem;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 1.35rem 1.25rem 1.5rem;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 85%, transparent);
+  background: color-mix(in srgb, var(--bf-card) 88%, transparent);
+  text-align: left;
+  overflow: hidden;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card:hover {
+  border-color: color-mix(in srgb, var(--bf-border) 40%, var(--bf-accent));
+  background: color-mix(in srgb, var(--bf-card) 95%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--bf-accent) 10%, transparent);
+}
+
+/* ── Step number — large watermark behind card ── */
+.stepNum {
+  position: absolute;
+  top: -0.3rem;
+  right: 0.45rem;
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--bf-accent) 18%, transparent),
+    color-mix(in srgb, var(--bf-accent) 6%, transparent)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  transition: opacity 0.2s ease;
+}
+
+.card:hover .stepNum {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--bf-accent) 28%, transparent),
+    color-mix(in srgb, var(--bf-accent) 12%, transparent)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Icon wrap — gradient orb ── */
+.iconWrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--bf-accent) 22%, var(--bf-card)),
+    color-mix(in srgb, var(--bf-accent) 10%, var(--bf-card))
+  );
+  border: 1px solid color-mix(in srgb, var(--bf-accent) 20%, transparent);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--bf-accent) 6%, transparent),
+    0 4px 12px color-mix(in srgb, var(--bf-accent) 12%, transparent);
+  flex-shrink: 0;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.card:hover .iconWrap {
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--bf-accent) 10%, transparent),
+    0 6px 18px color-mix(in srgb, var(--bf-accent) 18%, transparent);
+  transform: scale(1.05);
+}
+
+.iconWrap svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+/* ── Connector arrow between cards (desktop) ── */
+@media (min-width: 1024px) {
+  .card:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 2.1rem;
+    right: -0.65rem;
+    width: 0.35rem;
+    height: 0.35rem;
+    border-top: 2px solid color-mix(in srgb, var(--bf-accent) 35%, transparent);
+    border-right: 2px solid color-mix(in srgb, var(--bf-accent) 35%, transparent);
+    transform: rotate(45deg);
+    z-index: 2;
+  }
+}
+
+.cardTitle {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--bf-text);
+  padding-right: 2.5rem;
+}
+
+.cardBody {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--bf-text-muted);
+}
+
+.optional {
+  font-weight: 500;
+  color: var(--bf-text-muted);
+}

@@ -1,0 +1,457 @@
+/* Finance-advisor landing. Copy is Uzbek-only by design: the pitch narrative is
+   market-specific and lives here rather than in the shared i18n bundle. */
+
+.hero {
+  position: relative;
+  padding: 3.5rem 0 3rem;
+  text-align: center;
+}
+
+/* Faint phoenix rising behind the headline — the one ambient brand moment. */
+.heroPhoenix {
+  position: absolute;
+  top: -1.5rem;
+  left: 50%;
+  width: clamp(15rem, 38vw, 24rem);
+  height: auto;
+  transform: translateX(-50%);
+  opacity: 0.06;
+  pointer-events: none;
+  animation: phoenixRise 1.6s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+@keyframes phoenixRise {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(28px);
+  }
+  to {
+    opacity: 0.06;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+}
+
+/* Orchestrated page-load: each hero block settles in sequence. */
+.heroContent > * {
+  animation: heroSettle 0.55s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+.heroContent > *:nth-child(2) {
+  animation-delay: 70ms;
+}
+
+.heroContent > *:nth-child(3) {
+  animation-delay: 140ms;
+}
+
+.heroContent > *:nth-child(4) {
+  animation-delay: 210ms;
+}
+
+.heroContent > *:nth-child(5) {
+  animation-delay: 280ms;
+}
+
+.heroContent > *:nth-child(6) {
+  animation-delay: 350ms;
+}
+
+@keyframes heroSettle {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroPhoenix,
+  .heroContent > * {
+    animation: none;
+  }
+}
+
+.eyebrow {
+  display: inline-block;
+  margin: 0 0 1.25rem;
+  padding: 0.3125rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--bf-accent) 45%, transparent);
+  background: color-mix(in srgb, var(--bf-accent) 14%, transparent);
+  font-size: 0.8125rem;
+  font-weight: 550;
+  color: var(--bf-accent-soft);
+}
+
+.title {
+  margin: 0 auto 1.25rem;
+  max-width: 24ch;
+  font-family: var(--font-display), var(--font-body), system-ui, sans-serif;
+  font-size: clamp(1.5rem, 4.2vw, 2.6rem);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+}
+
+.titleAccent {
+  background: linear-gradient(115deg, var(--bf-accent) 20%, var(--px-gold) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  margin: 0 auto 2rem;
+  max-width: 52ch;
+  font-size: clamp(1rem, 2.2vw, 1.1875rem);
+  line-height: 1.6;
+  color: var(--bf-text-muted);
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.ctaPrimary,
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4375rem;
+  padding: 0.6875rem 1.375rem;
+  border-radius: 0.625rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ctaPrimary {
+  background: linear-gradient(135deg, var(--bf-accent), #2aa873);
+  color: var(--px-on-accent);
+  font-weight: 700;
+  box-shadow: 0 8px 24px -10px color-mix(in srgb, var(--bf-accent) 55%, transparent);
+}
+
+.ctaPrimary:hover {
+  filter: brightness(1.07);
+  transform: translateY(-1px);
+}
+
+.ctaSecondary {
+  border: 1px solid var(--bf-border);
+  color: var(--bf-text);
+}
+
+.ctaSecondary:hover {
+  border-color: var(--bf-accent);
+}
+
+/* ------------------------------------------------------------------- pain */
+
+.painGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.painCard {
+  padding: 1.375rem;
+  border-radius: 0.875rem;
+  border: 1px solid color-mix(in srgb, #ef4444 32%, transparent);
+  background: color-mix(in srgb, #ef4444 8%, var(--bf-card));
+}
+
+.painIcon {
+  margin-bottom: 0.75rem;
+  color: #f87171;
+}
+
+.painTitle {
+  margin: 0 0 0.5rem;
+  font-size: 1.0625rem;
+  font-weight: 650;
+}
+
+.painText {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--bf-text-muted);
+}
+
+/* ------------------------------------------------------------- big number */
+
+/* The ledger strip: a receipt-like band whose figure is set in brass mono. */
+.statBand {
+  margin-top: 2.5rem;
+  padding: 1.75rem 1.5rem 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid color-mix(in srgb, var(--px-gold) 28%, var(--bf-border));
+  background:
+    radial-gradient(
+      60% 120% at 50% 0%,
+      color-mix(in srgb, var(--px-gold) 9%, transparent),
+      transparent
+    ),
+    var(--bf-card);
+  text-align: center;
+}
+
+.statLabel {
+  margin: 0 0 0.875rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--px-gold-soft) 80%, var(--bf-text-muted));
+}
+
+.statNumber {
+  margin: 0;
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(1.875rem, 6vw, 3.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--px-gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.statUnit {
+  font-size: 0.5em;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--px-gold) 70%, var(--bf-text-muted));
+}
+
+.statCaption {
+  margin: 0.75rem auto 0;
+  max-width: 46ch;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--bf-text-muted);
+}
+
+.statSource {
+  margin: 0.875rem 0 0;
+  font-size: 0.75rem;
+  color: var(--bf-text-muted);
+  opacity: 0.75;
+}
+
+/* --------------------------------------------------------------- features */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  display: block;
+  padding: 1.375rem;
+  border-radius: 0.875rem;
+  border: 1px solid var(--bf-border);
+  background: var(--bf-card);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  border-color: color-mix(in srgb, var(--bf-accent) 60%, transparent);
+  transform: translateY(-2px);
+}
+
+.cardIcon {
+  margin-bottom: 0.75rem;
+  color: var(--bf-accent);
+}
+
+.cardTitle {
+  margin: 0 0 0.4375rem;
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.cardText {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--bf-text-muted);
+}
+
+/* ------------------------------------------------------------ differentiator */
+
+.contrast {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.contrastCard {
+  padding: 1.375rem;
+  border-radius: 0.875rem;
+  border: 1px solid var(--bf-border);
+  background: var(--bf-card);
+}
+
+.contrastCard[data-us="true"] {
+  border-color: color-mix(in srgb, #22c55e 45%, transparent);
+  background: color-mix(in srgb, #22c55e 9%, var(--bf-card));
+}
+
+.contrastWho {
+  margin: 0 0 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bf-text-muted);
+}
+
+.contrastSays {
+  margin: 0;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  font-weight: 550;
+}
+
+/* ------------------------------------------------------------------- steps */
+
+.steps {
+  display: grid;
+  gap: 0.875rem;
+  counter-reset: step;
+}
+
+.step {
+  display: flex;
+  gap: 0.875rem;
+  align-items: flex-start;
+  padding: 1rem 1.125rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--bf-border);
+  background: var(--bf-card);
+}
+
+.stepNum {
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 0.875rem;
+  font-weight: 680;
+  background: color-mix(in srgb, var(--bf-accent) 25%, transparent);
+  color: var(--bf-accent-soft);
+}
+
+.stepBody p {
+  margin: 0;
+}
+
+.stepTitle {
+  font-size: 0.9375rem;
+  font-weight: 620;
+  margin-bottom: 0.1875rem !important;
+}
+
+.stepText {
+  font-size: 0.875rem;
+  color: var(--bf-text-muted);
+  line-height: 1.55;
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.finalCta {
+  margin-top: 3rem;
+  padding: 2.5rem 1.5rem;
+  border-radius: 1rem;
+  text-align: center;
+  border: 1px solid color-mix(in srgb, var(--bf-accent) 40%, transparent);
+  background: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--bf-accent) 18%, var(--bf-card)),
+    var(--bf-card)
+  );
+}
+
+.finalTitle {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.375rem, 3.5vw, 1.875rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.finalText {
+  margin: 0 auto 1.5rem;
+  max-width: 44ch;
+  color: var(--bf-text-muted);
+  line-height: 1.6;
+}
+
+.disclaimerBand {
+  margin-top: 2rem;
+  padding: 1rem 1.125rem;
+  border-radius: 0.75rem;
+  border: 1px dashed var(--bf-border);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--bf-text-muted);
+}
+
+/* --------------------------------------------------- trust row + card arrow */
+
+.trustRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.25rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+  color: var(--bf-text-muted);
+}
+
+.card {
+  position: relative;
+}
+
+.cardArrow {
+  position: absolute;
+  right: 1.125rem;
+  bottom: 1rem;
+  font-size: 1rem;
+  color: var(--bf-accent-soft);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.card:hover .cardArrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .cardArrow {
+    transition: none;
+  }
+}

@@ -1,0 +1,322 @@
+.lead {
+  margin: 0 0 1rem;
+  color: var(--bf-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.split {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@media (min-width: 960px) {
+  .split {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .split > * {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+.panelTitle {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--bf-text);
+}
+
+.panelHint {
+  margin: 0 0 0.85rem;
+  font-size: 0.78rem;
+  color: var(--bf-text-muted);
+  line-height: 1.45;
+}
+
+.switchRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 88%, transparent);
+  background: color-mix(in srgb, var(--bf-surface) 94%, transparent);
+}
+
+.switchLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.switchTitle {
+  font-size: 0.9rem;
+  font-weight: 650;
+  color: var(--bf-text);
+}
+
+.switchMeta {
+  font-size: 0.76rem;
+  color: var(--bf-text-muted);
+  line-height: 1.35;
+}
+
+.switchBtn {
+  position: relative;
+  flex-shrink: 0;
+  width: 2.85rem;
+  height: 1.55rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.switchBtn:focus-visible {
+  outline: 2px solid var(--bf-accent);
+  outline-offset: 2px;
+}
+
+.switchBtnOn {
+  background: linear-gradient(135deg, var(--bf-accent) 0%, var(--bf-accent-mid) 100%);
+}
+
+.switchBtnOff {
+  background: color-mix(in srgb, var(--bf-border) 65%, var(--bf-surface));
+}
+
+.switchKnob {
+  position: absolute;
+  top: 0.2rem;
+  left: 0.2rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  background: #fafafa;
+  box-shadow: 0 1px 3px color-mix(in srgb, #000 18%, transparent);
+  transition: transform 0.15s ease;
+}
+
+.switchKnobOn {
+  transform: translateX(1.25rem);
+}
+
+.keyRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.keyValue {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 88%, transparent);
+  background: color-mix(in srgb, var(--bf-surface) 96%, transparent);
+  color: var(--bf-text);
+  word-break: break-all;
+}
+
+.checklist {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--bf-text-muted);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.checklist li {
+  margin-bottom: 0.35rem;
+}
+
+.snippetCard {
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 88%, transparent);
+  background: color-mix(in srgb, #0f1419 4%, var(--bf-card));
+  overflow: hidden;
+}
+
+.snippetToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.55rem 0.65rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--bf-border) 88%, transparent);
+  background: color-mix(in srgb, var(--bf-surface) 88%, transparent);
+}
+
+.snippetToolbarTitle {
+  margin: 0;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--bf-text-muted);
+}
+
+.copyBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0 0.85rem;
+  border-radius: 9px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 88%, transparent);
+  background: color-mix(in srgb, var(--bf-card) 92%, transparent);
+  color: var(--bf-text);
+  font-size: 0.8rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.copyBtn:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--bf-accent) 35%, var(--bf-border));
+}
+
+.copyBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.snippetPre {
+  margin: 0;
+  padding: 0.85rem 0.75rem 1rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--bf-text);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.copyMeta {
+  margin: 0.35rem 0 0;
+  font-size: 0.74rem;
+  color: var(--bf-text-muted);
+  min-height: 1.25rem;
+}
+
+.copyMetaOk {
+  color: color-mix(in srgb, #22c55e 85%, var(--bf-text-muted));
+}
+
+.copyMetaErr {
+  color: color-mix(in srgb, var(--bf-danger, #c45) 90%, var(--bf-text-muted));
+}
+
+/* ─── Phone ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .split {
+    gap: 1rem;
+  }
+
+  .switchRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+
+  .keyValue {
+    font-size: 0.72rem;
+  }
+
+  .snippetPre {
+    font-size: 0.65rem;
+    padding: 0.65rem 0.55rem 0.75rem;
+  }
+
+  .snippetToolbar {
+    padding: 0.45rem 0.55rem;
+  }
+
+  .copyBtn,
+  .saveBtn,
+  .secondaryBtn {
+    min-height: 2.75rem;
+  }
+
+  .saveBtn,
+  .secondaryBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .checklist {
+    font-size: 0.78rem;
+  }
+}
+
+.saveBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border: none;
+  border-radius: 10px;
+  color: #fafafa;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--bf-accent) 0%, var(--bf-accent-mid) 100%);
+  cursor: pointer;
+}
+
+.saveBtn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 88%, transparent);
+  background: color-mix(in srgb, var(--bf-card) 92%, transparent);
+  color: var(--bf-text);
+}
+
+.secondaryBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.errorBanner,
+.successBanner {
+  margin: 0 0 0.75rem;
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.88rem;
+}
+
+.errorBanner {
+  border: 1px solid color-mix(in srgb, var(--bf-danger, #c45) 35%, var(--bf-border));
+  background: color-mix(in srgb, var(--bf-danger, #c45) 8%, transparent);
+  color: var(--bf-text);
+}
+
+.successBanner {
+  border: 1px solid color-mix(in srgb, #22c55e 40%, var(--bf-border));
+  background: color-mix(in srgb, #22c55e 12%, transparent);
+  color: var(--bf-text);
+}

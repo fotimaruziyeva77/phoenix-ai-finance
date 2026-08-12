@@ -1,0 +1,219 @@
+# BotForge AI — continuous integration (lint, tests, builds, migrations).
+# Python 3.12 only (aligned with Dockerfile and pyproject.toml).
+# Does not print connection strings or other secrets.
+
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint-python:
+    name: Lint (Python)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Enforce Python 3.12
+        run: python scripts/check_python_version.py
+      - name: Install Ruff
+        run: pip install "ruff~=0.9"
+      - name: Ruff check
+        run: ruff check app tests
+
+  backend-tests:
+    name: Backend tests
+    needs: lint-python
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Pytest (unit / non-integration)
+        run: python -m pytest tests -m "not integration" -q
+
+  frontend:
+    name: Frontend (lint, test, build)
+    needs: lint-python
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+      NEXT_PUBLIC_API_BASE_URL: ""
+      # Baked into the client bundle for Sentry release tracking (no DSN required for CI).
+      NEXT_PUBLIC_SENTRY_RELEASE: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+
+  embed-widget:
+    name: Embed widget (test, build)
+    needs: lint-python
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: embed/widget
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: embed/widget/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+
+  migrations:
+    name: Migration sanity (Alembic)
+    needs: lint-python
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: botforge_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d botforge_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      APP_ENVIRONMENT: local
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/botforge_ci
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Apply migrations
+        run: alembic upgrade head
+
+  backend-integration:
+    name: Backend integration tests
+    needs: lint-python
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: botforge_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d botforge_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      APP_ENVIRONMENT: local
+      # Async URL for pytest + app; host port matches published service (not @postgres:).
+      TEST_DATABASE_URL: postgresql+asyncpg://postgres:postgres@127.0.0.1:5432/botforge_ci
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@127.0.0.1:5432/botforge_ci
+      JWT_SECRET_KEY: ci-integration-jwt-secret-key-32chars!
+      GEMINI_API_KEY: ci-integration-gemini-placeholder
+      # Optional: override pytest args (default: full integration marker).
+      PYTEST_INTEGRATION_ARGS: "-m integration"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install dependencies
+        run: pip install -r requirements.txt pytest-cov
+      - name: Apply migrations (Alembic)
+        env:
+          # env.py upgrades via async engine; sync URL is normalized to +asyncpg.
+          DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/botforge_ci
+        run: alembic upgrade head
+      - name: Run integration tests
+        run: |
+          set -o pipefail
+          mkdir -p ci-artifacts
+          PY_ARGS="${PYTEST_INTEGRATION_ARGS:--m integration}"
+          python -m pytest tests ${PY_ARGS} \
+            --junitxml=ci-artifacts/junit-integration.xml \
+            -v --tb=short \
+            --cov=app \
+            --cov-report=xml:ci-artifacts/coverage-integration.xml \
+            --cov-report=term-missing \
+            2>&1 | tee ci-artifacts/pytest-integration.log
+      - name: Upload integration failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-failure-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ci-artifacts/
+          if-no-files-found: warn
+
+  ci-gate:
+    name: CI status gate
+    runs-on: ubuntu-latest
+    if: always()
+    needs:
+      - lint-python
+      - backend-tests
+      - backend-integration
+      - frontend
+      - embed-widget
+      - migrations
+    steps:
+      - name: Require all jobs succeeded
+        env:
+          LINT: ${{ needs.lint-python.result }}
+          UNIT: ${{ needs.backend-tests.result }}
+          INTEGRATION: ${{ needs.backend-integration.result }}
+          FRONTEND: ${{ needs.frontend.result }}
+          EMBED: ${{ needs.embed-widget.result }}
+          MIGRATIONS: ${{ needs.migrations.result }}
+        run: |
+          ok() { [ "$1" = "success" ] || { echo "FAILED: $2 -> $1"; return 1; }; }
+          ok "$LINT" "lint-python" || exit 1
+          ok "$UNIT" "backend-tests" || exit 1
+          ok "$INTEGRATION" "backend-integration" || exit 1
+          ok "$FRONTEND" "frontend" || exit 1
+          ok "$EMBED" "embed-widget" || exit 1
+          ok "$MIGRATIONS" "migrations" || exit 1
+          echo "All required CI jobs succeeded."

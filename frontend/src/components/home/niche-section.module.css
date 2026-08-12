@@ -1,0 +1,131 @@
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.15rem;
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  height: 100%;
+  padding: 1.5rem 1.25rem 1.6rem;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 85%, transparent);
+  background: color-mix(in srgb, var(--bf-card) 88%, transparent);
+  text-align: left;
+  overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Subtle top-edge gradient glow */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--bf-accent) 40%, transparent),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--bf-border) 40%, var(--bf-accent));
+  background: color-mix(in srgb, var(--bf-card) 96%, transparent);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--bf-accent) 10%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+}
+
+/* ── Icon wrap — gradient orb ── */
+.iconWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--bf-accent) 22%, var(--bf-card)),
+    color-mix(in srgb, var(--bf-accent) 10%, var(--bf-card))
+  );
+  border: 1px solid color-mix(in srgb, var(--bf-accent) 20%, transparent);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--bf-accent) 6%, transparent),
+    0 4px 12px color-mix(in srgb, var(--bf-accent) 12%, transparent);
+  flex-shrink: 0;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.card:hover .iconWrap {
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--bf-accent) 10%, transparent),
+    0 6px 18px color-mix(in srgb, var(--bf-accent) 18%, transparent);
+  transform: scale(1.05);
+}
+
+.iconWrap svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--bf-text);
+}
+
+.cardBody {
+  margin: 0;
+  flex: 1;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--bf-text-muted);
+}

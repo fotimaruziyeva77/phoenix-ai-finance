@@ -1,0 +1,210 @@
+# Staged rollout: build API image → push to GHCR → optional SSH compose rollout → optional health verification.
+#
+# Production safety:
+# - Does not deploy to production.
+# - Remote rollout is opt-in (workflow_dispatch + run_remote_rollout) or via repository variables.
+# - Use GitHub Environment "staging" with required reviewers for secrets that can mutate infra.
+
+name: Deploy staging
+
+on:
+  workflow_dispatch:
+    inputs:
+      verify_health_url:
+        description: "Base URL to verify GET /api/v1/health (e.g. https://staging.example.com)"
+        required: false
+        type: string
+      run_remote_rollout:
+        description: "Run Docker Compose rollout over SSH (requires STAGING_SSH_* secrets and vars)"
+        required: false
+        type: boolean
+        default: false
+  push:
+    branches: [staging]
+
+concurrency:
+  group: deploy-staging-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build-push-api:
+    name: Build and push API image
+    runs-on: ubuntu-latest
+    outputs:
+      image_ref: ${{ steps.out.outputs.image_ref }}
+      image_path: ${{ steps.out.outputs.image_path }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Image path (GHCR requires lowercase)
+        id: im
+        shell: bash
+        run: echo "path=${GITHUB_REPOSITORY,,}/api" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Compute image ref
+        id: out
+        shell: bash
+        run: |
+          IMG="${{ env.REGISTRY }}/${{ steps.im.outputs.path }}:${{ github.sha }}"
+          echo "image_ref=$IMG" >> "$GITHUB_OUTPUT"
+          echo "image_path=${{ env.REGISTRY }}/${{ steps.im.outputs.path }}" >> "$GITHUB_OUTPUT"
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ steps.out.outputs.image_ref }}
+            ${{ steps.out.outputs.image_path }}:staging
+          build-args: |
+            APP_VERSION=${{ github.sha }}
+            SENTRY_RELEASE=staging@${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  verify-health-dispatch:
+    name: Verify health (URL only — no SSH in this run)
+    needs: build-push-api
+    if: >-
+      ${{
+        github.event_name == 'workflow_dispatch'
+        && inputs.verify_health_url != ''
+        && !inputs.run_remote_rollout
+      }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for /api/v1/health
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="${{ inputs.verify_health_url }}"
+          BASE="${BASE%/}"
+          URL="${BASE}/api/v1/health"
+          echo "Polling: $URL"
+          for i in $(seq 1 36); do
+            if curl -fsS --max-time 15 "$URL"; then
+              echo "Health OK"
+              exit 0
+            fi
+            echo "Attempt $i: not ready, sleeping 5s"
+            sleep 5
+          done
+          echo "Health check failed after retries"
+          exit 1
+
+  # Optional: after push to `staging`, poll a public URL. Enable only if something outside this
+  # workflow deploys the new digest immediately (otherwise the check can pass against an old revision).
+  verify-health-after-push:
+    name: Verify health (post-push, opt-in)
+    needs: build-push-api
+    if: >-
+      ${{
+        github.event_name == 'push'
+        && vars.STAGING_HEALTH_URL != ''
+        && vars.STAGING_AUTO_VERIFY == 'true'
+      }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for /api/v1/health
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="${{ vars.STAGING_HEALTH_URL }}"
+          BASE="${BASE%/}"
+          URL="${BASE}/api/v1/health"
+          echo "Polling: $URL"
+          for i in $(seq 1 36); do
+            if curl -fsS --max-time 15 "$URL"; then
+              echo "Health OK"
+              exit 0
+            fi
+            echo "Attempt $i: not ready, sleeping 5s"
+            sleep 5
+          done
+          exit 1
+
+  rollout-ssh:
+    name: Remote Docker Compose rollout (optional)
+    needs: build-push-api
+    if: >-
+      ${{
+        github.event_name == 'workflow_dispatch'
+        && inputs.run_remote_rollout
+      }}
+    environment: staging
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_REF: ${{ needs.build-push-api.outputs.image_ref }}
+      REPO_PATH: ${{ vars.STAGING_REPO_PATH }}
+    steps:
+      - name: Roll out API + worker on staging host
+        uses: appleboy/ssh-action@v1.2.0
+        env:
+          IMAGE_REF: ${{ env.IMAGE_REF }}
+          REPO_PATH: ${{ env.REPO_PATH }}
+        with:
+          host: ${{ secrets.STAGING_SSH_HOST }}
+          username: ${{ secrets.STAGING_SSH_USER }}
+          key: ${{ secrets.STAGING_SSH_KEY }}
+          envs: IMAGE_REF,REPO_PATH
+          script_stop: true
+          script: |
+            set -euo pipefail
+            if [ -z "${REPO_PATH:-}" ]; then
+              echo "Set repository variable STAGING_REPO_PATH (e.g. /home/deploy/botforge_ai)"
+              exit 1
+            fi
+            cd "$REPO_PATH"
+            export BOTFORGE_API_IMAGE="$IMAGE_REF"
+            docker compose pull backend knowledge-worker
+            docker compose up -d --no-build backend knowledge-worker
+            echo "Rollout requested for BOTFORGE_API_IMAGE=$IMAGE_REF"
+            echo "Run migrations separately if needed: scripts/deploy/migrate.sh"
+
+  verify-after-ssh:
+    name: Verify health (after SSH rollout)
+    needs: rollout-ssh
+    if: >-
+      ${{
+        github.event_name == 'workflow_dispatch'
+        && inputs.verify_health_url != ''
+        && inputs.run_remote_rollout
+      }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for /api/v1/health
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="${{ inputs.verify_health_url }}"
+          BASE="${BASE%/}"
+          URL="${BASE}/api/v1/health"
+          echo "Polling: $URL"
+          for i in $(seq 1 36); do
+            if curl -fsS --max-time 15 "$URL"; then
+              echo "Health OK"
+              exit 0
+            fi
+            echo "Attempt $i: not ready, sleeping 5s"
+            sleep 5
+          done
+          echo "Health check failed after SSH rollout"
+          exit 1

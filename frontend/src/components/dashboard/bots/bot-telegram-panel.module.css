@@ -1,0 +1,275 @@
+.lead {
+  margin: 0 0 1rem;
+  color: var(--bf-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.botfatherNote {
+  margin: 0 0 1rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 88%, transparent);
+  background: color-mix(in srgb, var(--bf-surface) 94%, transparent);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--bf-text-muted);
+}
+
+.botfatherNote strong {
+  color: var(--bf-text);
+  font-weight: 650;
+}
+
+.statusRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.statusPillOk {
+  border: 1px solid color-mix(in srgb, #22c55e 45%, var(--bf-border));
+  background: color-mix(in srgb, #22c55e 10%, transparent);
+  color: color-mix(in srgb, #15803d 70%, var(--bf-text));
+}
+
+.statusPillOff {
+  border: 1px solid color-mix(in srgb, var(--bf-border) 90%, transparent);
+  background: color-mix(in srgb, var(--bf-surface) 96%, transparent);
+  color: var(--bf-text-muted);
+}
+
+.usernameLine {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--bf-text);
+}
+
+.usernameMuted {
+  color: var(--bf-text-muted);
+  font-size: 0.82rem;
+}
+
+.metaLine {
+  margin: 0.35rem 0 0;
+  font-size: 0.76rem;
+  color: var(--bf-text-muted);
+}
+
+.tokenField {
+  margin-bottom: 0.75rem;
+}
+
+.tokenLabel {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 650;
+  color: var(--bf-text);
+}
+
+.tokenHint {
+  margin: 0.25rem 0 0.5rem;
+  font-size: 0.76rem;
+  color: var(--bf-text-muted);
+  line-height: 1.4;
+}
+
+.tokenInput {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.6rem 0.7rem;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 88%, transparent);
+  background: color-mix(in srgb, var(--bf-card) 96%, transparent);
+  color: var(--bf-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+}
+
+.tokenInput:focus {
+  outline: 2px solid color-mix(in srgb, var(--bf-accent) 55%, transparent);
+  outline-offset: 1px;
+}
+
+.tokenInput:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.connectBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border: none;
+  border-radius: 10px;
+  color: #fafafa;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--bf-accent) 0%, var(--bf-accent-mid) 100%);
+  cursor: pointer;
+}
+
+.connectBtn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.disconnectBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid color-mix(in srgb, var(--bf-danger, #c45) 45%, var(--bf-border));
+  background: color-mix(in srgb, var(--bf-danger, #c45) 8%, transparent);
+  color: var(--bf-text);
+}
+
+.disconnectBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 88%, transparent);
+  background: color-mix(in srgb, var(--bf-card) 92%, transparent);
+  color: var(--bf-text);
+}
+
+.secondaryBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.errorBanner,
+.successBanner {
+  margin: 0 0 0.75rem;
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.88rem;
+}
+
+.errorBanner {
+  border: 1px solid color-mix(in srgb, var(--bf-danger, #c45) 35%, var(--bf-border));
+  background: color-mix(in srgb, var(--bf-danger, #c45) 8%, transparent);
+  color: var(--bf-text);
+}
+
+.successBanner {
+  border: 1px solid color-mix(in srgb, #22c55e 40%, var(--bf-border));
+  background: color-mix(in srgb, #22c55e 12%, transparent);
+  color: var(--bf-text);
+}
+
+.panelTitle {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--bf-text);
+}
+
+/* ─── Plan upgrade banner ───────────────────────────── */
+.upgradeBanner {
+  padding: 1.25rem 1.1rem;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--bf-accent) 35%, var(--bf-border));
+  background: color-mix(in srgb, var(--bf-accent) 6%, var(--bf-surface));
+  color: var(--bf-text);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.upgradeBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.75rem;
+  padding: 0.55rem 1.35rem;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, var(--bf-accent) 0%, var(--bf-accent-mid) 100%);
+  color: #fafafa;
+  font-weight: 650;
+  font-size: 0.85rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.upgradeBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--bf-accent) 35%, transparent);
+}
+
+/* ─── Tablet ────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .statusRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ─── Phone ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .tokenInput {
+    font-size: 0.75rem;
+  }
+
+  .connectBtn,
+  .disconnectBtn,
+  .secondaryBtn {
+    min-height: 2.75rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .botfatherNote {
+    font-size: 0.78rem;
+    padding: 0.65rem 0.7rem;
+  }
+
+  .usernameLine {
+    word-break: break-all;
+  }
+}

@@ -1,0 +1,505 @@
+.hero {
+  width: 100%;
+  padding: 0 0 3rem;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 2.5rem;
+  max-width: 56rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+@media (min-width: 900px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 3rem 2.5rem;
+    max-width: none;
+    text-align: left;
+  }
+
+  .copy {
+    max-width: 32rem;
+  }
+}
+
+.copy {
+  margin: 0 auto;
+}
+
+/* ── Badge pill ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0 1rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 99px;
+  border: 1px solid color-mix(in srgb, var(--bf-accent) 40%, transparent);
+  background: color-mix(in srgb, var(--bf-accent) 10%, var(--bf-card));
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--bf-accent-soft);
+  letter-spacing: 0.01em;
+}
+
+.kicker {
+  margin: 0 0 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bf-accent-soft);
+}
+
+.headline {
+  margin: 0 0 1rem;
+  font-size: clamp(1.85rem, 4.5vw, 2.85rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  color: var(--bf-text);
+}
+
+/* ── Gradient accent text ── */
+.headlineAccent {
+  background: linear-gradient(135deg, #a78bfa, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtext {
+  margin: 0 0 1.75rem;
+  font-size: clamp(1rem, 2.2vw, 1.125rem);
+  line-height: 1.65;
+  color: var(--bf-text-muted);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem 1rem;
+}
+
+@media (min-width: 900px) {
+  .ctas {
+    justify-content: flex-start;
+  }
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem; /* ~44px touch target */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  padding: 0 1.35rem;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, var(--bf-accent) 0%, var(--bf-accent-mid) 100%);
+  color: #fafafa;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow:
+    0 1px 0 color-mix(in srgb, white 20%, transparent) inset,
+    0 8px 24px color-mix(in srgb, var(--bf-accent) 28%, transparent);
+  transition:
+    filter 0.15s ease,
+    transform 0.12s ease;
+}
+
+.btnPrimary:hover {
+  filter: brightness(1.07);
+}
+
+.btnPrimary:active {
+  transform: translateY(1px);
+}
+
+.btnPrimary:focus-visible {
+  outline: 2px solid var(--bf-accent-soft);
+  outline-offset: 3px;
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  padding: 0 1.25rem;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 90%, var(--bf-accent));
+  background: color-mix(in srgb, white 4%, var(--bf-card));
+  color: var(--bf-text);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.btnSecondary:hover {
+  background: color-mix(in srgb, white 8%, var(--bf-card));
+  border-color: var(--bf-accent-soft);
+}
+
+.btnSecondary:focus-visible {
+  outline: 2px solid var(--bf-accent-soft);
+  outline-offset: 3px;
+}
+
+/* ── Stats row ── */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.75rem;
+  margin-top: 1.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--bf-text-muted);
+}
+
+@media (min-width: 900px) {
+  .stats {
+    justify-content: flex-start;
+  }
+}
+
+.statSep {
+  opacity: 0.45;
+}
+
+/* Chatbot mock */
+.mockWrap {
+  position: relative;
+  margin: 0 auto;
+  padding: 1px;
+  border-radius: 16px;
+  background: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--bf-accent) 45%, transparent),
+    color-mix(in srgb, var(--bf-border) 80%, transparent)
+  );
+  max-width: 22rem;
+  width: 100%;
+}
+
+@media (min-width: 900px) {
+  .mockWrap {
+    margin: 0;
+    max-width: none;
+  }
+}
+
+.mockGlow {
+  position: absolute;
+  inset: -20%;
+  max-width: 140%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    color-mix(in srgb, var(--bf-accent) 22%, transparent) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mock {
+  position: relative;
+  z-index: 1;
+  border-radius: 15px;
+  overflow: hidden;
+  background: var(--bf-card);
+  border: 1px solid color-mix(in srgb, var(--bf-border) 70%, transparent);
+  box-shadow: 0 24px 48px color-mix(in srgb, black 45%, transparent);
+}
+
+.mockTop {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid var(--bf-border);
+  background: color-mix(in srgb, var(--bf-page-bg) 40%, var(--bf-card));
+}
+
+.mockDots {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.mockDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--bf-border);
+}
+
+.mockDot:nth-child(1) {
+  background: #f87171;
+}
+
+.mockDot:nth-child(2) {
+  background: #fbbf24;
+}
+
+.mockDot:nth-child(3) {
+  background: #4ade80;
+}
+
+.mockTitle {
+  flex: 1;
+  text-align: center;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bf-text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.mockLangFlag {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.mockLangDots {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+}
+
+.mockLangDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--bf-border);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.mockLangDotActive {
+  background: var(--bf-accent);
+  transform: scale(1.3);
+}
+
+.mockBody {
+  padding: 1rem 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-height: 16rem;
+  max-height: 18rem;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar but keep functionality */
+.mockBody::-webkit-scrollbar {
+  width: 0;
+}
+
+.bubbleRow {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bubbleRowBot {
+  justify-content: flex-start;
+}
+
+.bubble {
+  max-width: 88%;
+  padding: 0.55rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.bubbleUser {
+  background: color-mix(in srgb, var(--bf-accent) 22%, var(--bf-card));
+  border: 1px solid color-mix(in srgb, var(--bf-accent) 35%, transparent);
+  color: var(--bf-text);
+  border-bottom-right-radius: 4px;
+}
+
+.bubbleBot {
+  background: color-mix(in srgb, white 5%, var(--bf-input-bg));
+  border: 1px solid var(--bf-border);
+  color: color-mix(in srgb, var(--bf-text) 92%, transparent);
+  border-bottom-left-radius: 4px;
+}
+
+.bubbleMeta {
+  font-size: 0.6875rem;
+  color: var(--bf-text-muted);
+  margin-top: 0.25rem;
+  padding-left: 0.25rem;
+}
+
+/* ── Animation: bubble slides in ── */
+@keyframes bubbleSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.bubbleAnimateIn {
+  animation: bubbleSlideIn 0.3s ease-out;
+}
+
+/* ── Typing cursor blink ── */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--bf-accent);
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  animation: cursorBlink 0.6s step-end infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.bubbleTyping {
+  min-width: 3rem;
+}
+
+/* ── Typing dots animation ── */
+.typingDots {
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+  padding: 0.15rem 0;
+}
+
+.typingDots span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--bf-text-muted);
+  animation: dotPulse 1.2s ease-in-out infinite;
+}
+
+.typingDots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typingDots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes dotPulse {
+  0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
+  30% { opacity: 1; transform: scale(1.1); }
+}
+
+/* ── Success bubble (lead captured) ── */
+.bubbleSuccess {
+  background: color-mix(in srgb, #4ade80 15%, var(--bf-input-bg)) !important;
+  border-color: color-mix(in srgb, #4ade80 35%, transparent) !important;
+}
+
+.bubbleMetaSuccess {
+  font-size: 0.6875rem;
+  color: #4ade80;
+  margin-top: 0.25rem;
+  padding-left: 0.25rem;
+  font-weight: 600;
+}
+
+/* ── Lead captured banner ── */
+@keyframes bannerSlideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.leadBanner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  background: linear-gradient(135deg, color-mix(in srgb, #4ade80 18%, var(--bf-card)), color-mix(in srgb, var(--bf-accent) 12%, var(--bf-card)));
+  border-top: 1px solid color-mix(in srgb, #4ade80 30%, transparent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4ade80;
+  letter-spacing: 0.03em;
+  animation: bannerSlideUp 0.4s ease-out;
+}
+
+.leadBannerIcon {
+  font-size: 0.85rem;
+}
+
+/* ── Send button pulse when user is typing ── */
+@keyframes sendPulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--bf-accent) 40%, transparent); }
+  50% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--bf-accent) 0%, transparent); }
+}
+
+.mockSendPulse {
+  animation: sendPulse 1.5s ease-in-out infinite;
+}
+
+.mockInput {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0.35rem 0.75rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: 10px;
+  border: 1px solid var(--bf-border);
+  background: var(--bf-input-bg);
+}
+
+.mockInputPlaceholder {
+  flex: 1;
+  font-size: 0.75rem;
+  color: var(--bf-text-muted);
+}
+
+.mockSend {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, var(--bf-accent) 0%, var(--bf-accent-mid) 100%);
+  color: #fafafa;
+  display: grid;
+  place-items: center;
+  cursor: default;
+  flex-shrink: 0;
+}
+
+.mockSend svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}

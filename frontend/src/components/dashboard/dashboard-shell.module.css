@@ -1,0 +1,110 @@
+.root {
+  --bf-dash-sidebar-w: 16.5rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bf-page-bg);
+  color: var(--bf-text);
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+.sidebarDesktop {
+  display: none;
+  flex-shrink: 0;
+  height: 100%;
+  min-height: 100%;
+}
+
+.sidebarMobile {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.sidebarMobileOpen {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, black 55%, transparent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.sidebarMobileOpen .backdrop {
+  opacity: 1;
+}
+
+.drawer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: min(var(--bf-dash-sidebar-w), 88vw);
+  max-width: 100%;
+  transform: translateX(-100%);
+  transition: transform 0.22s ease;
+  box-shadow: 8px 0 32px color-mix(in srgb, black 40%, transparent);
+}
+
+.sidebarMobileOpen .drawer {
+  transform: translateX(0);
+}
+
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.main {
+  flex: 1;
+  overflow: auto;
+  padding: 1.35rem 1.25rem 2.5rem;
+}
+
+@media (min-width: 900px) {
+  .sidebarDesktop {
+    display: flex;
+  }
+
+  .sidebarMobile {
+    display: none;
+  }
+
+  .main {
+    padding: 1.75rem 2rem 3rem;
+  }
+}
+
+.pageInner {
+  max-width: 56rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .drawer {
+    transition: none;
+  }
+
+  .sidebarMobileOpen .backdrop {
+    opacity: 1;
+  }
+
+  .sidebarMobileOpen .drawer {
+    transform: translateX(0);
+  }
+}

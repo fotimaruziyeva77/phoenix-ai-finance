@@ -1,0 +1,18 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "frontend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000,
+      "cwd": "frontend"
+    },
+    {
+      "name": "widget-test",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "embed/widget", "--listen", "4500", "--no-clipboard"],
+      "port": 4500
+    }
+  ]
+}

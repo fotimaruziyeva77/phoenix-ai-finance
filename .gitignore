@@ -1,0 +1,17 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.env
+*.egg-info/
+dist/
+build/
+
+# Local deploy helper state (image refs for rollback); never commit secrets here.
+.deploy/
+frontend/src/components/layout/site-header.module.css
+
+# Windows temp logs accidentally written into the tree
+*.log

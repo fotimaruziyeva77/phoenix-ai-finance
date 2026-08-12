@@ -1,0 +1,212 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/*
+ * Phoenix AI palette — "banker's ledger" rather than generic dark SaaS.
+ * The page ink is green-tinted (old ledger covers), the primary accent is the
+ * phoenix growth-green from the logo, and money figures render in brass gold.
+ * Legacy --bf-* names are kept so the ~120 dashboard components retune for free.
+ */
+:root {
+  --bf-page-bg: #0a100d;
+  --bf-card: #101815;
+  --bf-border: #253630;
+  --bf-text: #f2f6f3;
+  --bf-text-muted: #9db1a6;
+  --bf-input-bg: #0d1511;
+  --bf-accent: #3bc98a;
+  --bf-accent-mid: #1b8f60;
+  --bf-accent-soft: #8fe6bd;
+
+  /* Brass — reserved for the money numbers the product exists to surface. */
+  --px-gold: #e9be5c;
+  --px-gold-soft: #f4d993;
+  /* Ink dark enough to sit on the bright green buttons. */
+  --px-on-accent: #05130c;
+}
+
+html {
+  color-scheme: dark;
+}
+
+/*
+ * Native <select> dropdown options: when a styled select has a custom background,
+ * some browsers (notably Chrome on Windows) render the open popup with a light
+ * background, making light --bf-text invisible. Force solid dark options app-wide.
+ */
+option {
+  background-color: var(--bf-input-bg);
+  color: var(--bf-text);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family:
+    var(--font-body),
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Ubuntu,
+    sans-serif;
+  line-height: 1.5;
+  background: var(--bf-page-bg);
+  color: var(--bf-text);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--px-gold) 32%, transparent);
+}
+
+main {
+  margin: 0;
+  width: 100%;
+}
+
+.bf-main--narrow {
+  padding: 1.5rem;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.bf-landing {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2.5rem clamp(1rem, 4vw, 2rem) 4rem;
+}
+
+/* Shared landing section chrome (single source for spacing / typography) */
+.bf-landingSection {
+  scroll-margin-top: 5rem;
+  padding: 3rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--bf-border) 55%, transparent);
+}
+
+.bf-landingSection__header {
+  max-width: 42rem;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+/* Section titles speak in the display voice; Unbounded runs wide, so sizes stay modest. */
+.bf-landingSection__header h2 {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display), var(--font-body), system-ui, sans-serif;
+  font-size: clamp(1.25rem, 2.8vw, 1.7rem);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.bf-landingSection__header p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--bf-text-muted);
+}
+
+@media (min-width: 768px) {
+  .bf-landingSection__header {
+    margin-bottom: 2.75rem;
+  }
+}
+
+.bf-landingSection__title {
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.35rem, 3vw, 1.6rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--bf-text);
+}
+
+.bf-landingSection__lead {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--bf-text-muted);
+}
+
+.bf-landingQuickNav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.65rem;
+  margin: 1.5rem 0 0;
+  font-size: 0.875rem;
+}
+
+.bf-landingQuickNav a {
+  color: var(--bf-accent-soft);
+  text-decoration: none;
+}
+
+.bf-landingQuickNav a:hover {
+  text-decoration: underline;
+}
+
+.bf-landingQuickNav a:focus-visible {
+  outline: 2px solid var(--bf-accent-soft);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.bf-landingQuickNav__sep {
+  color: var(--bf-text-muted);
+  user-select: none;
+}
+
+.bf-backendHealth {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  min-height: 1.3125rem;
+  color: var(--bf-text-muted);
+}
+
+.bf-backendHealth[data-state="pending"] {
+  opacity: 0.88;
+}
+
+.bf-backendHealth[data-state="error"] {
+  color: color-mix(in srgb, #f87171 92%, var(--bf-text));
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, CanvasText 25%, transparent);
+  background: color-mix(in srgb, CanvasText 6%, transparent);
+}
+
+button:focus-visible {
+  outline: 2px solid CanvasText;
+  outline-offset: 2px;
+}
+
+input {
+  font: inherit;
+  padding: 0.45rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, CanvasText 25%, transparent);
+  width: 100%;
+  max-width: 20rem;
+}
+
+label {
+  display: block;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 1rem;
+}

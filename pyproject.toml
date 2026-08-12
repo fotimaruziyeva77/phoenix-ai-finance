@@ -1,0 +1,25 @@
+# Application runtime: Python 3.12 (Dockerfile, CI, `.python-version`, `scripts/check_python_version.py`).
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+src = ["app", "tests"]
+
+[tool.ruff.lint]
+select = [
+  "E4",
+  "E7",
+  "E9",
+  "F",
+  "I",
+]
+ignore = [
+  "E501",
+]
+
+# SQLAlchemy ``Mapped["Model"]`` forward references are not resolved by Ruff.
+[tool.ruff.lint.per-file-ignores]
+"app/models/**/*.py" = ["F821"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

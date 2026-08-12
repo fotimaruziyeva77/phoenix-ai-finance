@@ -1,0 +1,37 @@
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.65rem;
+  padding: 0.45rem 0.55rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--bf-surface) 90%, transparent);
+  border: 1px dashed color-mix(in srgb, var(--bf-border) 75%, transparent);
+}
+
+.label {
+  margin: 0;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: var(--bf-text-muted);
+  width: 100%;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.78rem;
+  color: var(--bf-text);
+  padding: 0.2rem 0.45rem;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--bf-card) 92%, transparent);
+  border: 1px solid color-mix(in srgb, var(--bf-border) 82%, transparent);
+}
+
+.muted {
+  color: var(--bf-text-muted);
+  font-weight: 600;
+}

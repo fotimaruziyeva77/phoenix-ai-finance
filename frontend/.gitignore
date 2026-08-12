@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+.turbo
+*.tsbuildinfo
+.env*.local
+npm-debug.log*
+.DS_Store
+test-results/
+playwright-report/
+playwright/.cache/
+e2e/real-stack/seed-output.json

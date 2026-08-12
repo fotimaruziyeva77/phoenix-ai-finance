@@ -1,0 +1,446 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Billing Page
+   ═══════════════════════════════════════════════════════════════════ */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* ─── Page header ──────────────────────────────────── */
+.pageHeader {
+  margin-bottom: 0.25rem;
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 740;
+  letter-spacing: -0.03em;
+  color: var(--bf-text);
+}
+
+.pageSubtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--bf-text) 55%, transparent);
+  font-weight: 450;
+}
+
+/* ─── Current plan card ──────────────────────────────── */
+.currentCard {
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 85%, transparent);
+  background: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--bf-accent) 10%, var(--bf-card)) 0%,
+    var(--bf-card) 100%
+  );
+}
+
+.currentHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.currentTitle {
+  margin: 0 0 0.25rem;
+  font-size: 1.2rem;
+  font-weight: 660;
+  color: var(--bf-text);
+  letter-spacing: -0.025em;
+}
+
+.priceInline {
+  font-weight: 500;
+  font-size: 0.95rem;
+  opacity: 0.7;
+}
+
+.currentMeta {
+  margin: 0;
+  font-size: 0.875rem;
+  color: color-mix(in srgb, var(--bf-text) 70%, transparent);
+}
+
+.periodEnd {
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--bf-text) 60%, transparent);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 99px;
+  font-size: 0.78rem;
+  font-weight: 640;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.badgeActive {
+  background: color-mix(in srgb, #22c55e 18%, transparent);
+  color: #4ade80;
+}
+
+.badgePastDue {
+  background: color-mix(in srgb, #f59e0b 18%, transparent);
+  color: #fbbf24;
+}
+
+.badgeCanceled,
+.badgeExpired {
+  background: color-mix(in srgb, var(--bf-text) 10%, transparent);
+  color: color-mix(in srgb, var(--bf-text) 55%, transparent);
+}
+
+.limitsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.limitItem {
+  padding: 0.875rem 1rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--bf-border) 25%, var(--bf-card));
+  border: 1px solid color-mix(in srgb, var(--bf-border) 60%, transparent);
+}
+
+.limitLabel {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--bf-text) 55%, transparent);
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.limitValue {
+  display: block;
+  font-size: 1rem;
+  font-weight: 660;
+  color: var(--bf-text);
+  letter-spacing: -0.02em;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  padding: 0.6rem 1.25rem;
+  border-radius: 10px;
+  background: var(--bf-accent);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.btnPrimary:hover {
+  opacity: 0.88;
+}
+.btnPrimary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnSecondary {
+  padding: 0.6rem 1.25rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--bf-border) 40%, var(--bf-card));
+  color: var(--bf-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 80%, transparent);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.btnSecondary:hover {
+  opacity: 0.78;
+}
+.btnSecondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── Plans grid ─────────────────────────────────────── */
+.sectionTitle {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  font-weight: 660;
+  letter-spacing: -0.02em;
+  color: var(--bf-text);
+}
+
+.plansGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.planCard {
+  position: relative;
+  padding: 1.25rem 1rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--bf-border) 70%, transparent);
+  background: var(--bf-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.planCard:hover {
+  border-color: color-mix(in srgb, var(--bf-accent) 60%, transparent);
+  box-shadow: 0 2px 16px color-mix(in srgb, var(--bf-accent) 8%, transparent);
+}
+
+.planCardCurrent {
+  border-color: var(--bf-accent);
+  background: color-mix(in srgb, var(--bf-accent) 6%, var(--bf-card));
+}
+
+.planCardPopular {
+  border-color: color-mix(in srgb, var(--bf-accent) 60%, transparent);
+}
+
+.popularBadge {
+  position: absolute;
+  top: -10px;
+  right: 14px;
+  padding: 0.15rem 0.65rem;
+  border-radius: 99px;
+  background: var(--bf-accent);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.planName {
+  font-size: 0.95rem;
+  font-weight: 660;
+  color: var(--bf-text);
+  margin: 0;
+}
+
+.planPrice {
+  font-size: 1.5rem;
+  font-weight: 760;
+  color: var(--bf-text);
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.planPriceUnit {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--bf-text) 55%, transparent);
+  margin-left: 2px;
+}
+
+.planTagline {
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--bf-text) 65%, transparent);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.planFeatures {
+  margin: 0.5rem 0 0.75rem;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1;
+}
+
+.planFeature {
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--bf-text) 75%, transparent);
+  padding-left: 1.1em;
+  position: relative;
+}
+.planFeature::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #22c55e;
+  font-weight: 700;
+}
+
+.planBtn {
+  width: 100%;
+  padding: 0.55rem 0;
+  border-radius: 9px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.planBtnCurrent {
+  background: color-mix(in srgb, var(--bf-border) 50%, var(--bf-card));
+  color: color-mix(in srgb, var(--bf-text) 55%, transparent);
+  cursor: default;
+}
+
+.planBtnUpgrade {
+  background: var(--bf-accent);
+  color: #fff;
+}
+.planBtnUpgrade:hover {
+  opacity: 0.88;
+}
+.planBtnUpgrade:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.planBtnDowngrade {
+  background: color-mix(in srgb, var(--bf-border) 40%, var(--bf-card));
+  color: var(--bf-text);
+  border: 1px solid color-mix(in srgb, var(--bf-border) 70%, transparent);
+}
+.planBtnDowngrade:hover {
+  opacity: 0.78;
+}
+
+/* ─── Banners ────────────────────────────────────────── */
+.bannerSuccess {
+  padding: 0.85rem 1.1rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, #22c55e 12%, transparent);
+  color: #4ade80;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid color-mix(in srgb, #22c55e 25%, transparent);
+}
+
+.bannerCanceled {
+  padding: 0.85rem 1.1rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, #f59e0b 12%, transparent);
+  color: #fbbf24;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid color-mix(in srgb, #f59e0b 25%, transparent);
+}
+
+.error {
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, #ef4444 10%, transparent);
+  color: #f87171;
+  font-size: 0.85rem;
+  font-weight: 520;
+  border: 1px solid color-mix(in srgb, #ef4444 20%, transparent);
+}
+
+/* ─── Loading state ──────────────────────────────────── */
+.loadingWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid color-mix(in srgb, var(--bf-border) 50%, transparent);
+  border-top-color: var(--bf-accent-soft);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingText {
+  margin: 0;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--bf-text) 50%, transparent);
+}
+
+/* ─── Tablet ────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .plansGrid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .limitsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}
+
+/* ─── Phone ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .stack {
+    gap: 1.25rem;
+  }
+
+  .currentCard {
+    padding: 1rem;
+    border-radius: 14px;
+  }
+
+  .currentTitle {
+    font-size: 1.05rem;
+    word-break: break-word;
+  }
+
+  .plansGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .limitsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .planCard {
+    padding: 1rem 0.85rem;
+  }
+
+  .btnPrimary,
+  .btnSecondary,
+  .planBtn {
+    min-height: 2.75rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+  }
+}
